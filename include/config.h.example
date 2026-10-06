@@ -1,0 +1,30 @@
+﻿#ifndef CONFIG_H
+#define CONFIG_H
+
+// ============================================================
+// Blynk Cloud Credentials
+// Obtain these from Blynk.Cloud Web Console -> Device Info
+// ============================================================
+#define BLYNK_TEMPLATE_ID   "TMPL3smSuwBLF"
+#define BLYNK_TEMPLATE_NAME "ESP32 Industrial Relay"
+#define BLYNK_AUTH_TOKEN    "YOUR_BLYNK_AUTH_TOKEN_HERE"
+
+// ============================================================
+// Wi-Fi Access Point Credentials
+// ============================================================
+#define WIFI_SSID           "YOUR_WIFI_SSID"
+#define WIFI_PASSWORD       "YOUR_WIFI_PASSWORD"
+
+// ============================================================
+// Hardware Pin Mapping (ESP32 Dev Module)
+// ============================================================
+#define RELAY_PIN           25      // GPIO driving relay optical isolator
+#define STATUS_LED_PIN      2       // Built-in status indicator LED
+#define MANUAL_BUTTON_PIN   14      // External tactile override push button
+
+// ============================================================
+// Electrical Ratings
+// ============================================================
+#define LOAD_RATED_WATTS    12.0F   // Continuous power draw of connected load
+
+#endif // CONFIG_H
