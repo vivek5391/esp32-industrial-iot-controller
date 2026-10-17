@@ -6,9 +6,9 @@
 [![Storage](https://img.shields.io/badge/Storage-ESP32%20NVS%20Flash-critical.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An industrial-grade IoT controller engineered on the **ESP-WROOM-32** dual-core microcontroller. It enables high-reliability remote relay actuation, millisecond-accurate electrical energy integration ($kWh$), and **Non-Volatile Storage (NVS Flash)** persistence to withstand power interruptions.
+An ESP32-based IoT controller project for remote relay actuation, software-estimated electrical energy accumulation ($kWh$), and **Non-Volatile Storage (NVS Flash)** persistence. Timing accuracy, energy-measurement accuracy, and long-duration reliability require bench testing and should not be assumed from the firmware design alone.
 
-Designed for industrial automation, remote equipment monitoring, smart workshop distribution boards, and green energy management.
+Intended as a learning/prototype project for embedded control and telemetry; it is not a certified industrial controller.
 
 ---
 
@@ -128,3 +128,11 @@ esp32-industrial-iot-controller/
 *Mechanical & Automation Engineer*  
 - GitHub: [@vivek5391](https://github.com/vivek5391)  
 - Focus: Robotics, ROS 2, Industrial Automation, Embedded IoT & CAD/CAM
+
+
+## Safety and validation
+
+- Treat this as a low-voltage prototype until the complete circuit, enclosure, isolation distances, fusing, relay ratings, and wiring have been independently checked.
+- Mains voltage can cause fatal electric shock and fire. Do not connect an exposed prototype to mains or a live load; use a qualified electrician and suitable enclosed, fused, certified hardware.
+- Verify energy calculations against a calibrated reference meter before describing readings as accurate. Firmware persistence does not by itself prove reliable recovery under every power-loss condition.
+- Record the exact hardware, test setup, firmware version, and results before claiming timing, switching-latency, or measurement performance.
