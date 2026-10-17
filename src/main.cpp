@@ -10,11 +10,35 @@
  * - Safe relay actuation with configurable active-level logic.
  */
 
-// Configure via include/config.h or replace defaults below
+// Optional local credentials/configuration. Copy config.h.example to config.h.
+#if __has_include("config.h")
+  #include "config.h"
+#endif
+
+// Safe fallback defaults when config.h is not present.
 #ifndef BLYNK_TEMPLATE_ID
   #define BLYNK_TEMPLATE_ID   "TMPL3smSuwBLF"
+#endif
+#ifndef BLYNK_TEMPLATE_NAME
   #define BLYNK_TEMPLATE_NAME "ESP32 Relay"
+#endif
+#ifndef BLYNK_AUTH_TOKEN
   #define BLYNK_AUTH_TOKEN    "YOUR_BLYNK_AUTH_TOKEN"
+#endif
+#ifndef WIFI_SSID
+  #define WIFI_SSID           "YOUR_WIFI_SSID"
+#endif
+#ifndef WIFI_PASSWORD
+  #define WIFI_PASSWORD       "YOUR_WIFI_PASSWORD"
+#endif
+#ifndef RELAY_PIN
+  #define RELAY_PIN           25
+#endif
+#ifndef STATUS_LED_PIN
+  #define STATUS_LED_PIN      2
+#endif
+#ifndef LOAD_RATED_WATTS
+  #define LOAD_RATED_WATTS    12.0F
 #endif
 
 #include <Arduino.h>
@@ -25,17 +49,17 @@
 // ============================================================
 // Hardware Pin Mapping
 // ============================================================
-constexpr uint8_t RELAY_PIN      = 25;
-constexpr uint8_t STATUS_LED_PIN = 2;
+constexpr uint8_t RELAY_OUTPUT_PIN = RELAY_PIN;
+constexpr uint8_t STATUS_LED_OUTPUT_PIN = STATUS_LED_PIN;
 constexpr uint8_t RELAY_ON       = HIGH;
 constexpr uint8_t RELAY_OFF      = LOW;
 
 // Connected load power rating in Watts (e.g. 12W LED bulb / valve)
-constexpr float LOAD_WATTS = 12.0F;
+constexpr float LOAD_WATTS = LOAD_RATED_WATTS;
 
 // Wi-Fi Credentials
-const char *WIFI_SSID     = "YOUR_WIFI_SSID";
-const char *WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
+const char *wifiSsid = WIFI_SSID;
+const char *wifiPassword = WIFI_PASSWORD;
 
 // System State
 Preferences preferences;
@@ -66,8 +90,8 @@ void updateEnergy() {
 void setRelay(bool on) {
   updateEnergy();
   relayOn = on;
-  digitalWrite(RELAY_PIN, on ? RELAY_ON : RELAY_OFF);
-  digitalWrite(STATUS_LED_PIN, on ? HIGH : LOW);
+  digitalWrite(RELAY_OUTPUT_PIN, on ? RELAY_ON : RELAY_OFF);
+  digitalWrite(STATUS_LED_OUTPUT_PIN, on ? HIGH : LOW);
   Serial.printf("[RELAY] State changed: %s | Total Energy: %.4f kWh\n",
                 on ? "ACTIVE" : "STANDBY", energyWh / 1000.0F);
 }
@@ -96,8 +120,8 @@ void setup() {
   Serial.println("  ESP32 Industrial IoT Relay & Power Monitor Controller");
   Serial.println("========================================================");
 
-  pinMode(RELAY_PIN, OUTPUT);
-  pinMode(STATUS_LED_PIN, OUTPUT);
+  pinMode(RELAY_OUTPUT_PIN, OUTPUT);
+  pinMode(STATUS_LED_OUTPUT_PIN, OUTPUT);
   setRelay(false);
 
   // Initialize NVS Flash storage namespace
@@ -108,7 +132,7 @@ void setup() {
 
   // Initialize WiFi & Blynk Cloud
   Serial.print("[WIFI] Connecting to network...");
-  Blynk.begin(BLYNK_AUTH_TOKEN, WIFI_SSID, WIFI_PASSWORD);
+  Blynk.begin(BLYNK_AUTH_TOKEN, wifiSsid, wifiPassword);
 
   // Periodic Tasks:
   // Every 10 seconds: update energy consumption & cloud telemetry
