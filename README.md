@@ -16,7 +16,7 @@ Intended as a learning/prototype project for embedded control and telemetry; it 
 
 1. **Cloud Telemetry & Bidirectional Switching**:
    - Integrated with **Blynk 2.0 Cloud** via secure TLS/TCP protocol.
-   - Real-time mobile (iOS/Android) and web console control with low latency ($<150\text{ ms}$).
+   - Mobile (iOS/Android) and web console control through Blynk. Switching latency has not been benchmarked, so no latency figure is claimed.
 
 2. **Power Outage Resilience via NVS Flash**:
    - Uses ESP32 `Preferences.h` flash namespace (`energy/wattHours`).
@@ -45,7 +45,6 @@ Intended as a learning/prototype project for embedded control and telemetry; it 
   |                   VIN |------------->| VCC (5V External / USB)|
   |                       |              +------------------------+
   |                GPIO 2 |----[LED]     (Built-in Status Indicator)
-  |               GPIO 14 |<---[BUTTON]  (Optional Manual Override)
   +-----------------------+
 ```
 
@@ -55,7 +54,6 @@ Intended as a learning/prototype project for embedded control and telemetry; it 
 |---|---|---|---|
 | **GPIO 25** | Relay Drive Output | Push-Pull, 3.3V Logic | Optocoupler driver for 10A / 250VAC relay |
 | **GPIO 2** | System Status LED | Output | Optical confirmation of energized relay |
-| **GPIO 14** | Tactile Override | Internal Pull-Up Input | Manual toggle push button input |
 | **VIN / 5V** | System VCC | 5V DC Supply | Main system power rail |
 | **GND** | System Ground | Common Ground | Ground reference |
 
