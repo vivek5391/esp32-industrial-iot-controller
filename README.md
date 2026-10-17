@@ -99,7 +99,7 @@ esp32-industrial-iot-controller/
    ```
 
 2. Configure your credentials:
-   - Copy `include/config.h.example` to `include/config.h` (or modify `src/main.cpp`):
+   - Copy `include/config.h.example` to `include/config.h` and replace the Wi-Fi/Blynk placeholders with your own credentials. The firmware loads this file when it exists; otherwise, it uses fallback defaults in `src/main.cpp`.
    ```cpp
    #define BLYNK_TEMPLATE_ID   "YOUR_TEMPLATE_ID"
    #define BLYNK_AUTH_TOKEN    "YOUR_AUTH_TOKEN"
