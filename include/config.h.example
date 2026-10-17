@@ -20,7 +20,6 @@
 // ============================================================
 #define RELAY_PIN           25      // GPIO driving relay optical isolator
 #define STATUS_LED_PIN      2       // Built-in status indicator LED
-#define MANUAL_BUTTON_PIN   14      // External tactile override push button
 
 // ============================================================
 // Electrical Ratings
